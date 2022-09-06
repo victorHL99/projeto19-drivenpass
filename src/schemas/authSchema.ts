@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const signupSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().required().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/),
+  password: Joi.string().required().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{10,}$/),
 });
 
 const authSchemas = {
