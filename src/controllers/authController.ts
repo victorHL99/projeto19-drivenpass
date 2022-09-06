@@ -1,7 +1,13 @@
 import { Request, Response } from 'express';
 
+// import interfaces
+import { IUser } from '../types/authInterface.js'
+
 async function createUser(req:Request, res:Response){
-  console.log("teste")
+  const { email, password }:IUser = req.body;
+  console.log(email, password);
+
+
   res.send("Ok")
 }
 
