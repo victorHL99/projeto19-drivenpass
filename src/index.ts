@@ -1,9 +1,5 @@
-/* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable import/extensions */
 import chalk from 'chalk'
 
-// eslint-disable-next-line import/no-unresolved
 import app from './app.js'
 
 const port = +process.env.PORT || 9000
