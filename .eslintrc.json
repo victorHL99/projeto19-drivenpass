@@ -20,6 +20,7 @@
       "import/no-unresolved":"off",
       "import/extensions":"off",
       "no-console":"off",
-      "import/no-extraneous-dependencies":"off"
+      "import/no-extraneous-dependencies":"off",
+      "no-throw-literal":"off"
     }
 }

@@ -1,12 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 
-const ERRORS = {
-  unauthorized: 401,
-  conflict: 409,
-  not_found: 404,
-  bad_request: 400,
-}
-
 export default function errorHandlerMiddleware(
   err,
   req: Request,
@@ -14,9 +7,22 @@ export default function errorHandlerMiddleware(
   next: NextFunction,
 ) {
   console.log(err)
-  const { type } = err
-  let statusCode = ERRORS[type]
-  if (!statusCode) statusCode = 500 // any other types
 
-  return res.sendStatus(statusCode) // internal server error
+  if (err.type === 'unauthorized') {
+    return res.status(401).send(err.message)
+  }
+  if (err.type === 'conflict') {
+    return res.status(409).send(err.message)
+  }
+  if (err.type === 'not_found') {
+    return res.status(404).send(err.message)
+  }
+  if (err.type === 'bad_request') {
+    return res.status(400).send(err.message)
+  }
+  if (err.type === 'unprocessable_entity') {
+    return res.status(422).send(err.message)
+  }
+
+  return res.sendStatus(500)
 }
