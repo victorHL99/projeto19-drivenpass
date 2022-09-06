@@ -1,14 +1,20 @@
 import { Request, Response } from 'express';
 
+// import services
+import authService from '../services/authService.js'
+
 // import interfaces
-import { IUser } from '../types/authInterface.js'
+import { CreateAuthUser } from '../interfaces/authInterface.js';
 
 async function createUser(req:Request, res:Response){
-  const { email, password }:IUser = req.body;
+  const { email, password }:CreateAuthUser = req.body;
   console.log(email, password);
 
+// verify if email already exists
+  await authService.verifyEmailExists(email);
 
-  res.send("Ok")
+
+  res.sendStatus(201);
 }
 
 const authController = {
