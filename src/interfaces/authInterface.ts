@@ -1,7 +1,3 @@
-export interface IAuthUser {
-  id: number;
-  email:string;
-  password:string;
-}
+import { users } from "@prisma/client";
 
-export type CreateAuthUser = Omit<IAuthUser, 'id'>;
+export type CreateAuthUser = Omit<users, 'id'>;

@@ -1,8 +1,8 @@
+import { users } from '@prisma/client';
 import client from "../config/database.js";
-import { IAuthUser } from "../interfaces/authInterface.js";
 
 
-async function getEmail(email: IAuthUser['email']) {
+async function getEmail(email: users['email']) {
   return client.users.findUnique({
     where: {
       email
