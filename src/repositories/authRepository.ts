@@ -19,9 +19,18 @@ async function createUser(email: users['email'], password: users['password']) {
   });
 }
 
+async function getUserByEmail(email: users['email']) {
+  return client.users.findUnique({
+    where: {
+      email
+    }
+  });
+}
+
 const authRepository = {
   getEmail,
-  createUser
+  createUser,
+  getUserByEmail
 }
 
 export default authRepository

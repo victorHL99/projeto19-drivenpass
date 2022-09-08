@@ -35,16 +35,29 @@ async function encryptPassword(password: users['password']) {
   return hashPassword;
 }
 
+async function comparePassword(password:users['password'],hashPassword:users['password']) {
+  const result = await bcrypt.compare(password, hashPassword)
+  if(!result) {
+    throw {
+      type: 'unauthorized',
+      message: 'Password not match',
+    }
+  }
+  return result;
+}
+
 async function createUserDatabase(email: users['email'], password: users['password']) {
   const result = await authRepository.createUser(email, password);
 
   return result;
 }
 
+
 const authService = {
   verifyEmailExists,
   encryptPassword,
-  createUserDatabase
+  createUserDatabase,
+  comparePassword
 }
 
 export default authService

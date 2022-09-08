@@ -24,8 +24,8 @@ async function login(req: Request, res: Response) {
   const { email, password }: CreateAuthUser = req.body;
   const action:TypeAction = "login";
   
-  await authService.verifyEmailExists(email,action); // verify if email exists
-
+  const infoUser = await authService.verifyEmailExists(email,action); // verify if email exists
+  await authService.comparePassword(password,infoUser?.password); // compare password
 
   res.status(200).send("User logged");
 }
