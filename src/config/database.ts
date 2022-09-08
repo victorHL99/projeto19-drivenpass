@@ -7,7 +7,7 @@ dotenv.config()
 const { Pool } = pg
 
 const devConfig = {
-  host: '127.0.0.1',
+  host: 'localhost',
   port: 5432,
   user: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
