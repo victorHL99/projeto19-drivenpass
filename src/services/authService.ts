@@ -1,17 +1,31 @@
 import { users } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
+import { TypeAction } from '../types/authInterface.js';
+
 // import repositories
 import authRepository from "../repositories/authRepository.js";
 
-async function verifyEmailExists(email: users['email']) {
+async function verifyEmailExists(email: users['email'], action:TypeAction ) {
   const resultEmail = await authRepository.getEmail(email);
-  if (resultEmail) {
-    throw {
-      type: 'conflict',
-      message: 'Email already exists',
+  if(action === "signup") {
+    if(resultEmail){
+      throw {
+        type: 'conflict',
+        message: 'Email already exists',
+      }
     }
   }
+
+  if(action === "login") {
+    if(!resultEmail){
+      throw {
+        type: 'unauthorized',
+        message: 'Email not exists',
+      }
+    }
+  }
+
   return resultEmail;
 }
 

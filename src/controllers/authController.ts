@@ -7,28 +7,32 @@ import authService from '../services/authService.js'
 
 // import interfaces
 import { CreateAuthUser } from '../types/authInterface.js';
+import { TypeAction } from "../types/authInterface";
 
 async function createUser(req: Request, res: Response) {
   const { email, password }: CreateAuthUser = req.body;
+  const action:TypeAction = "signup";
 
-  await authService.verifyEmailExists(email); // verify if email already exists
+  await authService.verifyEmailExists(email,action); // verify if email already exists
   const hashPassword: users['password'] = await authService.encryptPassword(password); // encrypt password 
   await authService.createUserDatabase(email, hashPassword);// create user
 
   res.status(201).send("User created");
 }
 
-/* async function login(req: Request, res: Response) {
+async function login(req: Request, res: Response) {
   const { email, password }: CreateAuthUser = req.body;
-
-  // token creation
+  const action:TypeAction = "login";
+  
+  await authService.verifyEmailExists(email,action); // verify if email exists
 
 
   res.status(200).send("User logged");
-} */
+}
 
 const authController = {
-  createUser
+  createUser,
+  login
 }
 
 export default authController;

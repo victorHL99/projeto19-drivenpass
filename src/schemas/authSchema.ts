@@ -5,8 +5,14 @@ const signupSchema = Joi.object({
   password: Joi.string().required().pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{10,}$/),
 });
 
+const signinSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+});
+
 const authSchemas = {
   signupSchema,
+  signinSchema
 }
 
 export default authSchemas
