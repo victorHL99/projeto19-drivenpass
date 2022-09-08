@@ -1,15 +1,16 @@
 import { users } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import { TypeAction } from '../types/authInterface.js';
 
 // import repositories
 import authRepository from "../repositories/authRepository.js";
 
-async function verifyEmailExists(email: users['email'], action:TypeAction ) {
+async function verifyEmailExists(email: users['email'], action: TypeAction) {
   const resultEmail = await authRepository.getEmail(email);
-  if(action === "signup") {
-    if(resultEmail){
+  if (action === "signup") {
+    if (resultEmail) {
       throw {
         type: 'conflict',
         message: 'Email already exists',
@@ -17,8 +18,8 @@ async function verifyEmailExists(email: users['email'], action:TypeAction ) {
     }
   }
 
-  if(action === "login") {
-    if(!resultEmail){
+  if (action === "login") {
+    if (!resultEmail) {
       throw {
         type: 'unauthorized',
         message: 'Email not exists',
@@ -35,9 +36,9 @@ async function encryptPassword(password: users['password']) {
   return hashPassword;
 }
 
-async function comparePassword(password:users['password'],hashPassword:users['password']) {
+async function comparePassword(password: users['password'], hashPassword: users['password']) {
   const result = await bcrypt.compare(password, hashPassword)
-  if(!result) {
+  if (!result) {
     throw {
       type: 'unauthorized',
       message: 'Password not match',
@@ -52,12 +53,17 @@ async function createUserDatabase(email: users['email'], password: users['passwo
   return result;
 }
 
+async function generateToken(email: users['email'], JWT_KEY: string) {
+  const token = jwt.sign({ email }, JWT_KEY)
+  return token
+}
 
 const authService = {
   verifyEmailExists,
   encryptPassword,
   createUserDatabase,
-  comparePassword
+  comparePassword,
+  generateToken
 }
 
 export default authService
