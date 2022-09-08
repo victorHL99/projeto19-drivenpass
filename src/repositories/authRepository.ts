@@ -10,8 +10,18 @@ async function getEmail(email: users['email']) {
   });
 }
 
+async function createUser(email: users['email'], password: users['password']) {
+  return client.users.create({
+    data: {
+      email,
+      password
+    }
+  });
+}
+
 const authRepository = {
-  getEmail
+  getEmail,
+  createUser
 }
 
 export default authRepository

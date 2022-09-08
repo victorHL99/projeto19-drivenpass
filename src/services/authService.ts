@@ -21,9 +21,16 @@ async function encryptPassword(password: users['password']) {
   return hashPassword;
 }
 
+async function createUserDatabase(email: users['email'], password: users['password']) {
+  const result = await authRepository.createUser(email, password);
+
+  return result;
+}
+
 const authService = {
   verifyEmailExists,
-  encryptPassword
+  encryptPassword,
+  createUserDatabase
 }
 
 export default authService

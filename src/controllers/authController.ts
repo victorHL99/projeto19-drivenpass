@@ -10,16 +10,13 @@ async function createUser(req: Request, res: Response) {
   const { email, password }: CreateAuthUser = req.body;
   console.log(email, password);
 
-  // verify if email already exists
-  await authService.verifyEmailExists(email);
 
-  // encrypt password
-  const hashPassword = await authService.encryptPassword(password);
-
+  await authService.verifyEmailExists(email); // verify if email already exists
+  const hashPassword = await authService.encryptPassword(password); // encrypt password 
+  await authService.createUserDatabase(email, hashPassword);// create user
 
 
-
-  res.sendStatus(201);
+  res.status(201).send("User created");
 }
 
 const authController = {
