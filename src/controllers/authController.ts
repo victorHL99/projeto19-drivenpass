@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { users } from '@prisma/client';
+import jwt from 'jsonwebtoken';
 
 // import services
 import authService from '../services/authService.js'
@@ -16,6 +17,15 @@ async function createUser(req: Request, res: Response) {
 
   res.status(201).send("User created");
 }
+
+/* async function login(req: Request, res: Response) {
+  const { email, password }: CreateAuthUser = req.body;
+
+  // token creation
+
+
+  res.status(200).send("User logged");
+} */
 
 const authController = {
   createUser
