@@ -26,6 +26,7 @@ async function login(req: Request, res: Response) {
   
   const infoUser = await authService.verifyEmailExists(email,action); // verify if email exists
   await authService.comparePassword(password,infoUser?.password); // compare password
+  const token = jwt.sign({ email: infoUser?.email}, process.env.JWT_SECRET_KEY); // generate token
 
   res.status(200).send("User logged");
 }
