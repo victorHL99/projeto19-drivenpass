@@ -1,4 +1,5 @@
 import { users } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 // import repositories
 import authRepository from "../repositories/authRepository.js";
@@ -14,8 +15,15 @@ async function verifyEmailExists(email: users['email']) {
   return resultEmail;
 }
 
+async function encryptPassword(password: users['password']) {
+  const hashPassword = await bcrypt.hash(password, 10);
+
+  return hashPassword;
+}
+
 const authService = {
-  verifyEmailExists
+  verifyEmailExists,
+  encryptPassword
 }
 
 export default authService

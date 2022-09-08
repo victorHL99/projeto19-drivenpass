@@ -13,6 +13,9 @@ async function createUser(req: Request, res: Response) {
   // verify if email already exists
   await authService.verifyEmailExists(email);
 
+  // encrypt password
+  const hashPassword = await authService.encryptPassword(password);
+
 
 
 
