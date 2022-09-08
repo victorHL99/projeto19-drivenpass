@@ -1,4 +1,4 @@
-import pg from 'pg'
+/* import pg from 'pg'
 import dotenv from 'dotenv'
 import './setup.ts'
 
@@ -28,4 +28,14 @@ const connection = new Pool(
   process.env.MODE === 'PROD' ? prodConfig : devConfig,
 )
 
-export default connection
+export default connection */
+
+// prisma connection
+
+import pkg from '@prisma/client'
+
+const { PrismaClient } = pkg
+const client = new PrismaClient()
+
+export default client
+
