@@ -1,9 +1,13 @@
-import connection from "../config/database.js";
+import client from "../config/database.js";
 import { IAuthUser } from "../interfaces/authInterface.js";
 
 
 async function getEmail(email: IAuthUser['email']) {
-  return connection.query<IAuthUser>(`SELECT * FROM users WHERE email = $1`, [email]);
+  return client.users.findUnique({
+    where: {
+      email
+    }
+  });
 }
 
 const authRepository = {
