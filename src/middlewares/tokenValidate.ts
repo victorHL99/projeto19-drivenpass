@@ -15,7 +15,6 @@ export default async function tokenValidate(req: Request, res: Response, next: N
   try{
     const {email} = jwt.verify(token, JWT_KEY);
     res.locals.userEmail = email;
-    console.log(res.locals.userEmail)
     next();
   } catch (err) {
     throw {

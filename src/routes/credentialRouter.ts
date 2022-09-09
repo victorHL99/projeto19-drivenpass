@@ -13,11 +13,9 @@ credentialRouter.post("/credential/create", schemaValidate(credentialSchema.cred
 
 export default credentialRouter;
 
-// TODO
-// - [] Implementar validate token
-// - [] Implementar CredentialController
-// - [] Implementar CredentialService
-// - [] Implementar CredentialRepository
-// - [] Implementar CredentialModel
-// - [] Implementar CredentialSchema
+// TODO Implementar CredentialController
+// TODO Implementar CredentialService
+// TODO Implementar CredentialRepository
+// TODO Implementar CredentialModel
+// TODO Implementar CredentialSchema
 // - [V] Implementar CredentialRoutes
