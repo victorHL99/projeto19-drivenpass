@@ -37,10 +37,10 @@ async function createCredential(req: Request, res: Response) {
 
 async function getAllCredentials(req: Request, res: Response) {
   const email: users['email'] = res.locals.userEmail;
-  console.log(email, "controller");
 
   const userId = await credentialService.getUserIdByEmail(email);
   const allCredentials = await credentialService.getAllCredentials(userId);
+
 
   res.status(200).send(allCredentials);
 }
