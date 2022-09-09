@@ -9,7 +9,7 @@ import credentialSchema from "../schemas/credentialSchema.js";
 
 const credentialRouter = Router();
 
-credentialRouter.post("/credential/create", schemaValidate(credentialSchema.credentialCreateSchema), credentialController.createCredential);
+credentialRouter.post("/credential/create", schemaValidate(credentialSchema.credentialCreateSchema), tokenValidate,credentialController.createCredential);
 
 export default credentialRouter;
 
