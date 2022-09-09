@@ -1,13 +1,15 @@
 import { Router } from "express";
 
-import validateSchema from "../middlewares/schemaValidate";
-import validateToken from "../middlewares/tokenValidate";
+import credentialController from "../controllers/credentialController.js";
 
-import credentialSchema from "../schemas/credentialSchema";
+import schemaValidate from "../middlewares/schemaValidate.js";
+import tokenValidate from "../middlewares/tokenValidate.js";
+
+import credentialSchema from "../schemas/credentialSchema.js";
 
 const credentialRouter = Router();
 
-credentialRouter.post("/credential/create", validateSchema(credentialSchema.credentialCreateSchema))
+credentialRouter.post("/credential/create", schemaValidate(credentialSchema.credentialCreateSchema), credentialController.createCredential);
 
 export default credentialRouter;
 
