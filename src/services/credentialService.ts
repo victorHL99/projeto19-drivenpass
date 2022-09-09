@@ -21,10 +21,17 @@ async function verifyIfCredentialTitleAlreadyExists(title: CreateCredential['tit
     }
   }
 }
+
+async function getAllCredentials(userId: CreateCredential['userId']) {
+  const credentials = await credentialRepository.getAllCredentials(userId);
+  return credentials;
+}
+
 const CredentialService = {
   getUserIdByEmail,
   createCredential,
-  verifyIfCredentialTitleAlreadyExists
+  verifyIfCredentialTitleAlreadyExists,
+  getAllCredentials
 }
 
 export default CredentialService;
