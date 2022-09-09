@@ -33,7 +33,7 @@ model credentials {
   url       String
   username  String
   password  String
-  title     String   @unique
+  title     String
   userId    Int
   createdAt DateTime @default(now())
 
