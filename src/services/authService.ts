@@ -32,7 +32,7 @@ async function verifyEmailExists(email: users['email'], action: TypeAction) {
 
 async function encryptPassword(password: users['password']) {
   const salt = 10
-  
+
   const hashPassword = await bcrypt.hash(password, salt);
 
   return hashPassword;
@@ -60,12 +60,19 @@ async function generateToken(email: users['email'], JWT_KEY: string) {
   return token
 }
 
+async function saveTokenDatabase(userId: users['id'], token: string) {
+  const result = await authRepository.saveToken(userId, token);
+
+  return result;
+}
+
 const authService = {
   verifyEmailExists,
   encryptPassword,
   createUserDatabase,
   comparePassword,
-  generateToken
+  generateToken,
+  saveTokenDatabase
 }
 
 export default authService

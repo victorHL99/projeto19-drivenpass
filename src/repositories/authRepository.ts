@@ -27,10 +27,20 @@ async function getUserByEmail(email: users['email']) {
   })
 }
 
+async function saveToken(id: users['id'], token: string) {
+  return client.sessions.create({
+    data: {
+      token,
+      userId: id
+    }
+  })
+}
+
 const authRepository = {
   getEmail,
   createUser,
-  getUserByEmail
+  getUserByEmail,
+  saveToken
 }
 
 export default authRepository
