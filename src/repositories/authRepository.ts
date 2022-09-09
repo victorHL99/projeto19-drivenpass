@@ -24,7 +24,7 @@ async function getUserByEmail(email: users['email']) {
     where: {
       email
     }
-  });
+  })
 }
 
 const authRepository = {

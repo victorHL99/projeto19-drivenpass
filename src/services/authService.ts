@@ -31,7 +31,9 @@ async function verifyEmailExists(email: users['email'], action: TypeAction) {
 }
 
 async function encryptPassword(password: users['password']) {
-  const hashPassword = await bcrypt.hash(password, 10);
+  const salt = 10
+  
+  const hashPassword = await bcrypt.hash(password, salt);
 
   return hashPassword;
 }
