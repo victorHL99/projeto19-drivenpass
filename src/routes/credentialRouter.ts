@@ -13,3 +13,9 @@ export default credentialRouter;
 
 // TODO
 // - [] Implementar validate token
+// - [] Implementar CredentialController
+// - [] Implementar CredentialService
+// - [] Implementar CredentialRepository
+// - [] Implementar CredentialModel
+// - [] Implementar CredentialSchema
+// - [V] Implementar CredentialRoutes

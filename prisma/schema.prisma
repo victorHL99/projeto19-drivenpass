@@ -11,17 +11,30 @@ datasource db {
 }
 
 model users {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  password  String
-  createdAt DateTime   @default(now())
-  sessions  sessions[]
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  createdAt   DateTime      @default(now())
+  sessions    sessions[]
+  credentials credentials[]
 }
 
 model sessions {
   id        Int      @id @default(autoincrement())
   userId    Int
   token     String   @unique
+  createdAt DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+model credentials {
+  id        Int      @id @default(autoincrement())
+  url       String
+  username  String
+  password  String
+  title     String   @unique
+  userId    Int
   createdAt DateTime @default(now())
 
   user users @relation(fields: [userId], references: [id])
