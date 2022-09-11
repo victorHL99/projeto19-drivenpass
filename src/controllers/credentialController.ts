@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { users } from "@prisma/client";
+import { users, credentials } from "@prisma/client";
 
 import { CredentialInitial, CreateCredential } from "../types/credentialInterface.js";
 import credentialService from "../services/credentialService.js";
@@ -45,9 +45,23 @@ async function getAllCredentials(req: Request, res: Response) {
   res.status(200).send(allCredentials);
 }
 
+async function getCredentialById(req: Request, res: Response) {
+  const { id }: any = req.params;
+  const idCredential = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+  console.log(idCredential);
+
+  await credentialService.checkIfCredentialExists(idCredential);
+  await credentialService.checkIfCredentialIsFromUser(idCredential, email);
+  const credential = await credentialService.getCredentialById(idCredential);
+
+  res.status(200).send(credential);
+}
+
 const credentialController = {
   createCredential,
-  getAllCredentials
+  getAllCredentials,
+  getCredentialById
 };
 
 export default credentialController;

@@ -34,11 +34,20 @@ async function getAllCredentials(userId: CreateCredential['userId']) {
   })
 }
 
+async function getCredentialById(id: number) {
+  return client.credentials.findUnique({
+    where: {
+      id
+    }
+  })
+}
+
 const credentialRepository = {
   getUserIdByEmail,
   createCredential,
   verifyIfCredentialTitleAlreadyExists,
-  getAllCredentials
+  getAllCredentials,
+  getCredentialById
 
 };
 

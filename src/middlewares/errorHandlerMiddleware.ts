@@ -23,6 +23,9 @@ export default function errorHandlerMiddleware(
   if (err.type === 'unprocessable_entity') {
     return res.status(422).send(err.message)
   }
+  if (err.type === 'forbidden') {
+    return res.status(403).send(err.message)
+  }
 
   return res.sendStatus(500)
 }

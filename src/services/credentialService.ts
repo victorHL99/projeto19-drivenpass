@@ -32,11 +32,45 @@ async function getAllCredentials(userId: CreateCredential['userId']) {
   return credentialWithNewPassword;
 }
 
+async function getCredentialById(id: number) {
+  const credential = await credentialRepository.getCredentialById(id);
+
+  const credentialWithNewPassword = credentialWithCleanPassword(credential);
+
+  return credentialWithNewPassword;
+}
+
+async function checkIfCredentialIsFromUser(id: number, email: users['email']) {
+  const credential = await credentialRepository.getCredentialById(id);
+
+  const userId = await getUserIdByEmail(email);
+
+  if (credential.userId !== userId) {
+    throw {
+      type: 'forbidden',
+      message: 'This credential is not from this user'
+    }
+  }
+}
+
+async function checkIfCredentialExists(id: number) {
+  const credential = await credentialRepository.getCredentialById(id);
+
+  if (!credential) {
+    throw {
+      type: 'not_found',
+      message: 'Credential not found'
+    }
+  }
+}
 const CredentialService = {
   getUserIdByEmail,
   createCredential,
   verifyIfCredentialTitleAlreadyExists,
-  getAllCredentials
+  getAllCredentials,
+  getCredentialById,
+  checkIfCredentialIsFromUser,
+  checkIfCredentialExists
 }
 
 export default CredentialService;
