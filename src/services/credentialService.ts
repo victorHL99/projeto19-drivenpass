@@ -63,6 +63,11 @@ async function checkIfCredentialExists(id: number) {
     }
   }
 }
+
+async function deleteCredentialById(id: number) {
+  await credentialRepository.deleteCredentialById(id);
+}
+
 const CredentialService = {
   getUserIdByEmail,
   createCredential,
@@ -70,7 +75,8 @@ const CredentialService = {
   getAllCredentials,
   getCredentialById,
   checkIfCredentialIsFromUser,
-  checkIfCredentialExists
+  checkIfCredentialExists,
+  deleteCredentialById
 }
 
 export default CredentialService;

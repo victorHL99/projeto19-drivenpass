@@ -58,10 +58,23 @@ async function getCredentialById(req: Request, res: Response) {
   res.status(200).send(credential);
 }
 
+async function deleteCredentialById(req: Request, res: Response) {
+  const { id }: any = req.params;
+  const idCredential = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+
+  await credentialService.checkIfCredentialExists(idCredential);
+  await credentialService.checkIfCredentialIsFromUser(idCredential, email);
+  await credentialService.deleteCredentialById(idCredential);
+
+  res.status(200).send("Credential deleted");
+}
+
 const credentialController = {
   createCredential,
   getAllCredentials,
-  getCredentialById
+  getCredentialById,
+  deleteCredentialById
 };
 
 export default credentialController;

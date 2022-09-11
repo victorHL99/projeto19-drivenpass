@@ -42,12 +42,21 @@ async function getCredentialById(id: number) {
   })
 }
 
+async function deleteCredentialById(id: number) {
+  return client.credentials.delete({
+    where: {
+      id
+    }
+  })
+}
+
 const credentialRepository = {
   getUserIdByEmail,
   createCredential,
   verifyIfCredentialTitleAlreadyExists,
   getAllCredentials,
-  getCredentialById
+  getCredentialById,
+  deleteCredentialById
 
 };
 
