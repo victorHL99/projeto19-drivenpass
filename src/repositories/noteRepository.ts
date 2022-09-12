@@ -25,10 +25,19 @@ async function createNote(note: CreateNote) {
   })
 }
 
+async function getAllNotes(userId: notes['userId']) {
+  return client.notes.findMany({
+    where: {
+      userId
+    }
+  })
+}
+
 const noteRepository = {
   getNoteByTitle,
   getUserIdByEmail,
-  createNote
+  createNote,
+  getAllNotes
 }
 
 export default noteRepository

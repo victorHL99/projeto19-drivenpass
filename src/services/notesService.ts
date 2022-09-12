@@ -22,10 +22,18 @@ async function verifyIfNoteTitleAlreadyExists(title: CreateNote['title'], userId
 async function createNote(note: CreateNote) {
   await noteRepository.createNote(note);
 }
+
+async function getAllNotes(userId: CreateNote['userId']) {
+  const notes = await noteRepository.getAllNotes(userId);
+  return notes;
+}
+
+
 const noteService = {
   verifyIfNoteTitleAlreadyExists,
   getUserIdByEmail,
-  createNote
+  createNote,
+  getAllNotes
 }
 
 export default noteService

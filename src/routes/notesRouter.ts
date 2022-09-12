@@ -10,5 +10,6 @@ import noteSchema from "../schemas/notesSchema.js";
 const notesRouter = Router();
 
 notesRouter.post("/create", schemaValidate(noteSchema.noteCreateSchema), tokenValidate, notesController.createNote);
+notesRouter.get("/all", tokenValidate, notesController.getAllNotes);
 
 export default notesRouter;
