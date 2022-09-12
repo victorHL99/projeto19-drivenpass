@@ -18,6 +18,7 @@ model users {
   sessions    sessions[]
   credentials credentials[]
   notes       notes[]
+  cards       cards[]
 }
 
 model sessions {
@@ -47,6 +48,22 @@ model notes {
   description String
   userId      Int
   createdAt   DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+model cards {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  label          String
+  number         String
+  name           String
+  securityCode   String
+  expirationDate String
+  password       String
+  isVirtual      Boolean
+  type           String
+  createdAt      DateTime @default(now())
 
   user users @relation(fields: [userId], references: [id])
 }
