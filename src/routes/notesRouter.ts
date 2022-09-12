@@ -11,5 +11,6 @@ const notesRouter = Router();
 
 notesRouter.post("/create", schemaValidate(noteSchema.noteCreateSchema), tokenValidate, notesController.createNote);
 notesRouter.get("/all", tokenValidate, notesController.getAllNotes);
+notesRouter.get("/:id", tokenValidate, notesController.getNoteById);
 
 export default notesRouter;

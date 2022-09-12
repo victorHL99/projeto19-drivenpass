@@ -33,11 +33,20 @@ async function getAllNotes(userId: notes['userId']) {
   })
 }
 
+async function getNoteById(id: number) {
+  return client.notes.findUnique({
+    where: {
+      id
+    }
+  })
+}
+
 const noteRepository = {
   getNoteByTitle,
   getUserIdByEmail,
   createNote,
-  getAllNotes
+  getAllNotes,
+  getNoteById
 }
 
 export default noteRepository

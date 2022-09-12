@@ -28,12 +28,42 @@ async function getAllNotes(userId: CreateNote['userId']) {
   return notes;
 }
 
+async function getNoteById(id: number) {
+  const note = await noteRepository.getNoteById(id);
+  return note;
+}
+
+async function checkIfNoteExists(id: number) {
+  const note = await noteRepository.getNoteById(id);
+
+  if (!note) {
+    throw {
+      type: 'not_found',
+      message: 'Note not found'
+    }
+  }
+}
+
+async function checkIfNoteIsFromUser(id: number, email: users['email']) {
+  const userId = await getUserIdByEmail(email);
+  const note = await noteRepository.getNoteById(id);
+
+  if (note.userId !== userId) {
+    throw {
+      type: 'forbidden',
+      message: 'You do not have permission to access this note'
+    }
+  }
+}
 
 const noteService = {
   verifyIfNoteTitleAlreadyExists,
   getUserIdByEmail,
   createNote,
-  getAllNotes
+  getAllNotes,
+  getNoteById,
+  checkIfNoteExists,
+  checkIfNoteIsFromUser
 }
 
 export default noteService

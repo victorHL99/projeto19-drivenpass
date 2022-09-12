@@ -41,9 +41,22 @@ async function getAllNotes(req: Request, res: Response) {
 
 }
 
+async function getNoteById(req: Request, res: Response) {
+  const { id } = req.params;
+  const idNote = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+
+  await noteService.checkIfNoteExists(idNote);
+  await noteService.checkIfNoteIsFromUser(idNote, email);
+  const note = await noteService.getNoteById(idNote);
+
+  res.status(200).json(note);
+}
+
 const notesController = {
   createNote,
-  getAllNotes
+  getAllNotes,
+  getNoteById
 }
 
 export default notesController;
