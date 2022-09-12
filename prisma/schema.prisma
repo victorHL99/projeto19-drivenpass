@@ -19,6 +19,7 @@ model users {
   credentials credentials[]
   notes       notes[]
   cards       cards[]
+  network     network[]
 }
 
 model sessions {
@@ -64,6 +65,16 @@ model cards {
   isVirtual      Boolean
   type           String
   createdAt      DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+model network {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  label     String
+  password  String
+  createdAt DateTime @default(now())
 
   user users @relation(fields: [userId], references: [id])
 }
