@@ -17,6 +17,7 @@ model users {
   createdAt   DateTime      @default(now())
   sessions    sessions[]
   credentials credentials[]
+  notes       notes[]
 }
 
 model sessions {
@@ -36,6 +37,16 @@ model credentials {
   title     String
   userId    Int
   createdAt DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+model notes {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  userId      Int
+  createdAt   DateTime @default(now())
 
   user users @relation(fields: [userId], references: [id])
 }
