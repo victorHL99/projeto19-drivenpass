@@ -9,8 +9,6 @@ async function createCredential(req: Request, res: Response) {
   const { url, username, password, title }: CredentialInitial = req.body;
   const email: users['email'] = res.locals.userEmail;
 
-  console.log(email, "controller");
-
   // find userId by userEmail
   const userId = await credentialService.getUserIdByEmail(email);
 

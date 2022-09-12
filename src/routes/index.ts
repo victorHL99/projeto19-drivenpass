@@ -9,6 +9,6 @@ const router = Router()
 
 router.use(authRouter)
 router.use("/credential", credentialRouter)
-router.use("/secureNotes", notesRouter)
+router.use("/notes", notesRouter)
 
 export default router
