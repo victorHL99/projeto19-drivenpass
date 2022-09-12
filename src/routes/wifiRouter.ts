@@ -12,5 +12,6 @@ const wifiRouter = Router();
 wifiRouter.post("/create", validateSchema(wifiSchema.wifiCreateSchema), tokenValidate, wifiController.createWifi);
 wifiRouter.get("/all", tokenValidate, wifiController.getAllWifi);
 wifiRouter.get("/:id", tokenValidate, wifiController.getWifiById);
+wifiRouter.delete("/:id", tokenValidate, wifiController.deleteWifiById);
 
 export default wifiRouter;

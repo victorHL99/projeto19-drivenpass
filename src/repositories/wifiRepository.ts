@@ -33,11 +33,20 @@ async function getWifiById(id: number) {
   })
 }
 
+async function deleteWifiById(id: number) {
+  return client.network.delete({
+    where: {
+      id
+    }
+  })
+}
+
 const wifiRepository = {
   getUserIdByEmail,
   createWifi,
   getAllWifi,
-  getWifiById
+  getWifiById,
+  deleteWifiById
 }
 
 export default wifiRepository;

@@ -50,13 +50,18 @@ async function getWifiById(id: number) {
   return wifiWithCleanPassword(wifi);
 }
 
+async function deleteWifiById(id: number) {
+  return wifiRepository.deleteWifiById(id);
+}
+
 const wifiService = {
   getUserIdByEmail,
   createWifi,
   getAllWifi,
   checkIfWifiExists,
   checkIfWifiBelongsToUser,
-  getWifiById
+  getWifiById,
+  deleteWifiById
 }
 
 export default wifiService;

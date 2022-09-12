@@ -46,11 +46,22 @@ async function getWifiById(req: Request, res: Response) {
   res.status(200).send(wifi);
 }
 
+async function deleteWifiById(req: Request, res: Response) {
+  const { id }: any = req.params;
+  const idWifi = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+
+  await wifiService.checkIfWifiExists(idWifi);
+  await wifiService.checkIfWifiBelongsToUser(idWifi, email);
+  await wifiService.deleteWifiById(idWifi);
+  res.status(200).send("Wifi deleted");
+}
 
 const wifiController = {
   createWifi,
   getAllWifi,
-  getWifiById
+  getWifiById,
+  deleteWifiById
 }
 
 export default wifiController;
