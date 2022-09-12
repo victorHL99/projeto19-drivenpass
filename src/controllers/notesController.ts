@@ -53,10 +53,24 @@ async function getNoteById(req: Request, res: Response) {
   res.status(200).json(note);
 }
 
+async function deleteNoteById(req: Request, res: Response) {
+  const { id } = req.params;
+  const idNote = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+
+  await noteService.checkIfNoteExists(idNote);
+  await noteService.checkIfNoteIsFromUser(idNote, email);
+  await noteService.deleteNoteById(idNote);
+
+  res.status(200).json({
+    message: 'Note deleted successfully',
+  });
+}
 const notesController = {
   createNote,
   getAllNotes,
-  getNoteById
+  getNoteById,
+  deleteNoteById
 }
 
 export default notesController;

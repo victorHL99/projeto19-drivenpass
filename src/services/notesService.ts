@@ -56,6 +56,10 @@ async function checkIfNoteIsFromUser(id: number, email: users['email']) {
   }
 }
 
+async function deleteNoteById(id: number) {
+  await noteRepository.deleteNoteById(id);
+}
+
 const noteService = {
   verifyIfNoteTitleAlreadyExists,
   getUserIdByEmail,
@@ -63,7 +67,8 @@ const noteService = {
   getAllNotes,
   getNoteById,
   checkIfNoteExists,
-  checkIfNoteIsFromUser
+  checkIfNoteIsFromUser,
+  deleteNoteById
 }
 
 export default noteService

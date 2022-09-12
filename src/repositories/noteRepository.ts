@@ -41,12 +41,21 @@ async function getNoteById(id: number) {
   })
 }
 
+async function deleteNoteById(id: number) {
+  return client.notes.delete({
+    where: {
+      id
+    }
+  })
+}
+
 const noteRepository = {
   getNoteByTitle,
   getUserIdByEmail,
   createNote,
   getAllNotes,
-  getNoteById
+  getNoteById,
+  deleteNoteById
 }
 
 export default noteRepository
