@@ -42,8 +42,18 @@ async function createCard(req: Request, res: Response) {
   });
 }
 
+async function getAllCards(req: Request, res: Response) {
+  const email: users['email'] = res.locals.userEmail;
+
+  const userId: number = await cardService.getUserIdByEmail(email);
+  const allCards = await cardService.getAllCards(userId);
+
+  res.status(200).json(allCards);
+}
+
 const cardController = {
-  createCard
+  createCard,
+  getAllCards
 
 }
 

@@ -1,4 +1,4 @@
-import { credentials } from "@prisma/client";
+import { credentials,cards } from "@prisma/client";
 import cryptr from "cryptr";
 
 import passwordUtils from "./passwordUtils.js";
@@ -14,8 +14,20 @@ export function credentialWithCleanPassword(credetial: credentials) {
   return newCredential;
 }
 
+export function cardWithCleanPassword(card: cards ) {
+  const newPassword = passwordUtils.decryptPasswordByCryptr(card.password);
+
+  const newCard = {
+    ...card,
+    password: newPassword,
+  };
+
+  return newCard;
+}
+
 const dataFormat = {
-  credentialWithCleanPassword
+  credentialWithCleanPassword,
+  cardWithCleanPassword
 }
 
 export default dataFormat;

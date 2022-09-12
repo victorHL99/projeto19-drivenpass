@@ -33,11 +33,20 @@ async function createCard(card: CreateCard) {
   })
 }
 
+async function getAllCards(userId: number) {
+  return client.cards.findMany({
+    where: {
+      userId
+    }
+  })
+}
+
 const cardRepository = {
   getUserIdByEmail,
   verifyIfCardNumberAlreadyExists,
   verifyIfCardLabelAlreadyExists,
-  createCard
+  createCard,
+  getAllCards
 }
 
 export default cardRepository;

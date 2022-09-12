@@ -2,6 +2,8 @@ import { users } from '@prisma/client';
 import { CreateCard } from "../types/cardInterface.js";
 import cardRepository from '../repositories/cardRepository.js';
 
+import { cardWithCleanPassword } from "../utils/dataFormat.js";
+
 async function getUserIdByEmail(email: users['email']) {
   const result = await cardRepository.getUserIdByEmail(email);
 
@@ -34,12 +36,19 @@ async function createCard(card: CreateCard) {
   return cardRepository.createCard(card);
 }
 
+async function getAllCards(userId: number) {
+  const cards = await cardRepository.getAllCards(userId);
+  const cardsWithoutPassword = cards.map(cardWithCleanPassword)
+  return cardsWithoutPassword;
+}
+
 
 const cardService = {
   getUserIdByEmail,
   verifyIfCardNumberAlreadyExists,
   verifyIfCardLabelAlreadyExists,
-  createCard
+  createCard,
+  getAllCards
 }
 
 export default cardService;
