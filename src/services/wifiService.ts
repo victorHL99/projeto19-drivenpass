@@ -22,10 +22,41 @@ async function getAllWifi(userId: users['id']) {
   return wifiWithoutPassword;
 }
 
+async function checkIfWifiExists(id: number) {
+  const wifi = await wifiRepository.getWifiById(id);
+
+  if (!wifi) {
+    throw {
+      type: "not_found",
+      message: "Wifi not found",
+    };
+  }
+}
+
+async function checkIfWifiBelongsToUser(id: number, email: users['email']) {
+  const userId = await getUserIdByEmail(email);
+  const wifi = await wifiRepository.getWifiById(id);
+
+  if (wifi.userId !== userId) {
+    throw {
+      type: "not_found",
+      message: "Wifi does not belong to the user",
+    };
+  }
+}
+
+async function getWifiById(id: number) {
+  const wifi = await wifiRepository.getWifiById(id);
+  return wifiWithCleanPassword(wifi);
+}
+
 const wifiService = {
   getUserIdByEmail,
   createWifi,
-  getAllWifi
+  getAllWifi,
+  checkIfWifiExists,
+  checkIfWifiBelongsToUser,
+  getWifiById
 }
 
 export default wifiService;

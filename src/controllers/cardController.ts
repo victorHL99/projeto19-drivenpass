@@ -55,7 +55,6 @@ async function getAllCards(req: Request, res: Response) {
 async function getCardById(req: Request, res: Response) {
   const { id }: any = req.params;
   const idCard = parseInt(id, 10);
-  console.log(idCard);
   const email: users['email'] = res.locals.userEmail;
 
   await cardService.checkIfCardExists(idCard);

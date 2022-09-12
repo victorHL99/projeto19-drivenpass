@@ -25,10 +25,19 @@ async function getAllWifi(userId: users['id']) {
   })
 }
 
+async function getWifiById(id: number) {
+  return client.network.findUnique({
+    where: {
+      id
+    }
+  })
+}
+
 const wifiRepository = {
   getUserIdByEmail,
   createWifi,
-  getAllWifi
+  getAllWifi,
+  getWifiById
 }
 
 export default wifiRepository;

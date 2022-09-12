@@ -34,9 +34,23 @@ async function getAllWifi(req: Request, res: Response) {
   const wifi = await wifiService.getAllWifi(userId);
   res.status(200).send(wifi);
 }
+
+async function getWifiById(req: Request, res: Response) {
+  const { id }: any = req.params;
+  const idWifi = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+
+  await wifiService.checkIfWifiExists(idWifi);
+  await wifiService.checkIfWifiBelongsToUser(idWifi, email);
+  const wifi = await wifiService.getWifiById(idWifi);
+  res.status(200).send(wifi);
+}
+
+
 const wifiController = {
   createWifi,
-  getAllWifi
+  getAllWifi,
+  getWifiById
 }
 
 export default wifiController;
