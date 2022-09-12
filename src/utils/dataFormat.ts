@@ -1,4 +1,4 @@
-import { credentials,cards } from "@prisma/client";
+import { credentials, cards, network } from "@prisma/client";
 import cryptr from "cryptr";
 
 import passwordUtils from "./passwordUtils.js";
@@ -14,7 +14,7 @@ export function credentialWithCleanPassword(credetial: credentials) {
   return newCredential;
 }
 
-export function cardWithCleanPassword(card: cards ) {
+export function cardWithCleanPassword(card: cards) {
   const newPassword = passwordUtils.decryptPasswordByCryptr(card.password);
 
   const newCard = {
@@ -25,9 +25,21 @@ export function cardWithCleanPassword(card: cards ) {
   return newCard;
 }
 
+export function wifiWithCleanPassword(wifi: network) {
+  const newPassword = passwordUtils.decryptPasswordByCryptr(wifi.password);
+
+  const newWifi = {
+    ...wifi,
+    password: newPassword,
+  };
+
+  return newWifi;
+}
+
 const dataFormat = {
   credentialWithCleanPassword,
-  cardWithCleanPassword
+  cardWithCleanPassword,
+  wifiWithCleanPassword
 }
 
 export default dataFormat;

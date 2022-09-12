@@ -27,8 +27,16 @@ async function createWifi(req: Request, res: Response) {
 
   res.status(201).send("Network created");
 }
+
+async function getAllWifi(req: Request, res: Response) {
+  const email = res.locals.userEmail as users['email'];
+  const userId = await wifiService.getUserIdByEmail(email);
+  const wifi = await wifiService.getAllWifi(userId);
+  res.status(200).send(wifi);
+}
 const wifiController = {
-  createWifi
+  createWifi,
+  getAllWifi
 }
 
 export default wifiController;

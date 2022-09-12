@@ -17,9 +17,18 @@ async function createWifi(network: CreateWifi) {
   })
 }
 
+async function getAllWifi(userId: users['id']) {
+  return client.network.findMany({
+    where: {
+      userId
+    }
+  })
+}
+
 const wifiRepository = {
   getUserIdByEmail,
-  createWifi
+  createWifi,
+  getAllWifi
 }
 
 export default wifiRepository;
