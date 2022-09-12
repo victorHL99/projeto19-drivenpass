@@ -47,7 +47,6 @@ async function getCredentialById(req: Request, res: Response) {
   const { id }: any = req.params;
   const idCredential = parseInt(id, 10);
   const email: users['email'] = res.locals.userEmail;
-  console.log(idCredential);
 
   await credentialService.checkIfCredentialExists(idCredential);
   await credentialService.checkIfCredentialIsFromUser(idCredential, email);

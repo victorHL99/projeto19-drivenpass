@@ -31,8 +31,8 @@ async function createCard(req: Request, res: Response) {
   // verify if card number already exists
   await cardService.verifyIfCardNumberAlreadyExists(card.number);
 
-  // verify if card label already exists
-  await cardService.verifyIfCardLabelAlreadyExists(card.label);
+  // veirfy if card label already exists with userId
+  await cardService.verifyIfCardLabelAlreadyExistsWithUserId(card.label, userId);
 
   // create card
   await cardService.createCard(card);
@@ -51,9 +51,23 @@ async function getAllCards(req: Request, res: Response) {
   res.status(200).json(allCards);
 }
 
+async function getCardById(req: Request, res: Response) {
+  const { id }: any = req.params;
+  const idCard = parseInt(id, 10);
+  console.log(idCard);
+  const email: users['email'] = res.locals.userEmail;
+
+  await cardService.checkIfCardExists(idCard);
+  await cardService.checkIfCardIsFromUser(idCard, email);
+  const card = await cardService.getCardById(idCard);
+
+  res.status(200).json(card);
+}
+
 const cardController = {
   createCard,
-  getAllCards
+  getAllCards,
+  getCardById
 
 }
 

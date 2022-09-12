@@ -41,12 +41,39 @@ async function getAllCards(userId: number) {
   })
 }
 
+async function checkIfCardExists(idCard: number) {
+  return client.cards.findUnique({
+    where: {
+      id: idCard
+    }
+  })
+}
+
+async function getCardById(idCard: number) {
+  return client.cards.findUnique({
+    where: {
+      id: idCard
+    }
+  })
+}
+
+async function verifyIfCardLabelAlreadyExistsWithUserId(label: string, userId: number) {
+  return client.cards.findFirst({
+    where: {
+      label,
+      userId
+    }
+  })
+}
 const cardRepository = {
   getUserIdByEmail,
   verifyIfCardNumberAlreadyExists,
   verifyIfCardLabelAlreadyExists,
   createCard,
-  getAllCards
+  getAllCards,
+  checkIfCardExists,
+  getCardById,
+  verifyIfCardLabelAlreadyExistsWithUserId
 }
 
 export default cardRepository;

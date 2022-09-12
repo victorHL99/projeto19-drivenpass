@@ -32,14 +32,57 @@ async function verifyIfCardLabelAlreadyExists(label: string) {
   }
 }
 
+async function verifyIfCardLabelAlreadyExistsWithUserId(label: string, userId: number) {
+  const card = await cardRepository.verifyIfCardLabelAlreadyExistsWithUserId(label, userId);
+
+  if (card) {
+    throw {
+      type: 'conflict',
+      message: 'Card Label already exists'
+    }
+  }
+}
+
 async function createCard(card: CreateCard) {
   return cardRepository.createCard(card);
 }
 
 async function getAllCards(userId: number) {
-  const cards = await cardRepository.getAllCards(userId);
-  const cardsWithoutPassword = cards.map(cardWithCleanPassword)
+  const cardsInfo = await cardRepository.getAllCards(userId);
+
+  const cardsWithoutPassword = cardsInfo.map(cardWithCleanPassword)
+
   return cardsWithoutPassword;
+}
+
+async function checkIfCardExists(idCard: number) {
+  const card = await cardRepository.checkIfCardExists(idCard);
+
+  if (!card) {
+    throw {
+      type: 'not_found',
+      message: 'Card not found'
+    }
+  }
+}
+
+async function checkIfCardIsFromUser(idCard: number, email: users['email']) {
+  const card = await cardRepository.getCardById(idCard);
+
+  const userId = await getUserIdByEmail(email);
+
+  if (card.userId !== userId) {
+    throw {
+      type: 'forbidden',
+      message: 'This Card is not from this user'
+    }
+  }
+}
+
+async function getCardById(idCard: number) {
+  const card = await cardRepository.getCardById(idCard);
+
+  return cardWithCleanPassword(card);
 }
 
 
@@ -48,7 +91,11 @@ const cardService = {
   verifyIfCardNumberAlreadyExists,
   verifyIfCardLabelAlreadyExists,
   createCard,
-  getAllCards
+  getAllCards,
+  checkIfCardExists,
+  checkIfCardIsFromUser,
+  getCardById,
+  verifyIfCardLabelAlreadyExistsWithUserId
 }
 
 export default cardService;
