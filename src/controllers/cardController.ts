@@ -28,8 +28,9 @@ async function createCard(req: Request, res: Response) {
     userId,
   };
 
+  // TODO - add condition with userId
   // verify if card number already exists
-  await cardService.verifyIfCardNumberAlreadyExists(card.number);
+  /* await cardService.verifyIfCardNumberAlreadyExists(card.number); */
 
   // veirfy if card label already exists with userId
   await cardService.verifyIfCardLabelAlreadyExistsWithUserId(card.label, userId);
@@ -64,10 +65,25 @@ async function getCardById(req: Request, res: Response) {
   res.status(200).json(card);
 }
 
+async function deleteCardById(req: Request, res: Response) {
+  const { id }: any = req.params;
+  const idCard = parseInt(id, 10);
+  const email: users['email'] = res.locals.userEmail;
+
+  await cardService.checkIfCardExists(idCard);
+  await cardService.checkIfCardIsFromUser(idCard, email);
+  await cardService.deleteCardById(idCard);
+
+  res.status(200).json({
+    message: 'Card deleted successfully',
+  });
+}
+
 const cardController = {
   createCard,
   getAllCards,
-  getCardById
+  getCardById,
+  deleteCardById
 
 }
 

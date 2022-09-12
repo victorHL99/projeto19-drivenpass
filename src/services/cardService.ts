@@ -85,6 +85,10 @@ async function getCardById(idCard: number) {
   return cardWithCleanPassword(card);
 }
 
+async function deleteCardById(idCard: number) {
+  return cardRepository.deleteCardById(idCard);
+}
+
 
 const cardService = {
   getUserIdByEmail,
@@ -95,7 +99,8 @@ const cardService = {
   checkIfCardExists,
   checkIfCardIsFromUser,
   getCardById,
-  verifyIfCardLabelAlreadyExistsWithUserId
+  verifyIfCardLabelAlreadyExistsWithUserId,
+  deleteCardById
 }
 
 export default cardService;

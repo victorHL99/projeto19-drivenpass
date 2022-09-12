@@ -65,6 +65,14 @@ async function verifyIfCardLabelAlreadyExistsWithUserId(label: string, userId: n
     }
   })
 }
+
+async function deleteCardById(idCard: number) {
+  return client.cards.delete({
+    where: {
+      id: idCard
+    }
+  })
+}
 const cardRepository = {
   getUserIdByEmail,
   verifyIfCardNumberAlreadyExists,
@@ -73,7 +81,8 @@ const cardRepository = {
   getAllCards,
   checkIfCardExists,
   getCardById,
-  verifyIfCardLabelAlreadyExistsWithUserId
+  verifyIfCardLabelAlreadyExistsWithUserId,
+  deleteCardById
 }
 
 export default cardRepository;
